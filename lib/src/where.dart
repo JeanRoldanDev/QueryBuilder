@@ -72,10 +72,10 @@ class Data extends DataModel {
 
     if (sql.query.isEmpty) {
       sql.query.add('SELECT * FROM ${sql.table}');
-      return sql.executeSQL<JMap>();
+      return sql.executeQuerySQL<JMap>();
     }
     sql.query.insert(0, 'SELECT * FROM ${sql.table}');
-    return sql.executeSQL<JMap>();
+    return sql.executeQuerySQL<JMap>();
   }
 
   String toSQL() {
@@ -99,9 +99,9 @@ class DataModel {
 
     if (sql.query.isEmpty) {
       sql.query.add('SELECT * FROM ${sql.table}');
-      return sql.executeSQL<T>(transform);
+      return sql.executeQuerySQL<T>(transform);
     }
 
-    return sql.executeSQL<T>(transform);
+    return sql.executeQuerySQL<T>(transform);
   }
 }

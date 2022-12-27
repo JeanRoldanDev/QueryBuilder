@@ -22,7 +22,7 @@ class SQLquery {
   String get paramsCode => 'p${params.keys.length}';
   DBconnect? dbconnect;
 
-  String getSQL([String? fmtString, Map<String, dynamic>? values]) {
+  String getSQL() {
     final sql = query.join(' ');
     return PostgreSQLFormat.substitute(sql, params);
   }
@@ -31,7 +31,7 @@ class SQLquery {
     return PostgreSQLFormat.substitute(fmtString, null);
   }
 
-  Future<List<T>> executeSQL<T>([JMapToModel<T>? transform]) async {
+  Future<List<T>> executeQuerySQL<T>([JMapToModel<T>? transform]) async {
     final connect = Connect.instance;
 
     if (dbconnect == null) {
@@ -69,6 +69,32 @@ class SQLquery {
         result.add(map as T);
       }
     }
+
+    return result;
+  }
+
+  Future<int> executeSQL() async {
+    final connect = Connect.instance;
+
+    if (dbconnect == null) {
+      throw 'requires initializing a database connection, '
+          'use DB.conexion';
+    }
+
+    if (connect.connection == null) {
+      await connect.init();
+    }
+
+    final sql = query.join(' ');
+    print('==============================================================>');
+    print('1) QUERY: $sql');
+    print('2) PARAMETER: $params');
+    print('3) SQL EXECUTE QUERY: ${PostgreSQLFormat.substitute(sql, params)}');
+
+    final result = await connect.connection!.execute(
+      sql,
+      substitutionValues: params,
+    );
 
     return result;
   }
