@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'package:database_query_builder/src/sql_query.dart';
 import 'package:postgres/postgres.dart';
-import 'package:query_builder/src/sql_query.dart';
 
 class Connect {
   factory Connect() {

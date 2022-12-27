@@ -1,4 +1,4 @@
-name: query_builder
+name: database_query_builder
 description: The Database Query Builder for Dart provides an easy, efficient, and fluid interface for building or running database queries.
 version: 0.0.2
 repository: https://github.com/JeanRoldanDev/query_builder

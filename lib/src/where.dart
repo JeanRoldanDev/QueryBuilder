@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_print, unnecessary_type_check
 
-import 'package:query_builder/src/data.dart';
-import 'package:query_builder/src/exec.dart';
-import 'package:query_builder/src/models.dart';
-import 'package:query_builder/src/sql_enums.dart';
-import 'package:query_builder/src/sql_query.dart';
+import 'package:database_query_builder/src/data.dart';
+import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/src/models.dart';
+import 'package:database_query_builder/src/sql_enums.dart';
+import 'package:database_query_builder/src/sql_query.dart';
 
 class Where<T> {
   T where([dynamic arg1, dynamic arg2, dynamic arg3]) {

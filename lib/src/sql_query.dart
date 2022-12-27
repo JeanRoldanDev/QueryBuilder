@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
+import 'package:database_query_builder/src/connect.dart';
+import 'package:database_query_builder/src/models.dart';
 import 'package:postgres/postgres.dart';
-import 'package:query_builder/src/connect.dart';
-import 'package:query_builder/src/models.dart';
 
 typedef JMap = Map<String, dynamic>;
 typedef JMapToModel<T> = T Function(JMap);

@@ -1,7 +1,7 @@
-import 'package:query_builder/src/data.dart';
-import 'package:query_builder/src/exec.dart';
-import 'package:query_builder/src/sql_query.dart';
-import 'package:query_builder/src/where.dart';
+import 'package:database_query_builder/src/data.dart';
+import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/src/sql_query.dart';
+import 'package:database_query_builder/src/where.dart';
 
 class Table extends Data with Where<Filter> {
   Table(this.tableName);

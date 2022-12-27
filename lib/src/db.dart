@@ -1,6 +1,6 @@
-import 'package:query_builder/src/models.dart';
-import 'package:query_builder/src/sql_query.dart';
-import 'package:query_builder/src/table.dart';
+import 'package:database_query_builder/src/models.dart';
+import 'package:database_query_builder/src/sql_query.dart';
+import 'package:database_query_builder/src/table.dart';
 
 typedef Converter<T> = T Function(Map<String, dynamic> row)?;
 

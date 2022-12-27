@@ -1,4 +1,4 @@
-import 'package:query_builder/src/sql_query.dart';
+import 'package:database_query_builder/src/sql_query.dart';
 
 class Data extends DataModel {
   Future<List<JMap>> get([
