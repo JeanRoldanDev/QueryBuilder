@@ -1,6 +1,6 @@
 
 <H1 style="text-align:center">
-<img src="./docs/zebra.png" width="128"/>
+<img src="./doc/zebra.png" width="128"/>
 <BR>
 Database: Query Builder
 </H1>
