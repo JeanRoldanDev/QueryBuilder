@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_print, unnecessary_type_check
 
+import 'package:query_builder/src/data.dart';
+import 'package:query_builder/src/exec.dart';
 import 'package:query_builder/src/models.dart';
 import 'package:query_builder/src/sql_enums.dart';
 import 'package:query_builder/src/sql_query.dart';
 
-class Where {
-  Filter where([dynamic arg1, dynamic arg2, dynamic arg3]) {
+class Where<T> {
+  T where([dynamic arg1, dynamic arg2, dynamic arg3]) {
     final sql = SQLquery.instance;
     final whereExist = sql.query.where((e) => e.contains('WHERE')).length;
     final argWhere = whereExist > 0 ? 'AND' : 'WHERE';
@@ -17,7 +19,7 @@ class Where {
     if (arg1 != null && arg2 == null && arg2 == null) {
       if (arg1 is SqlQuery) {
         sql.query.add('$argWhere ${arg1.value}');
-        return Filter();
+        return T is Filter ? Filter() as T : Exec() as T;
       } else {
         throw 'required parameters for WHERE, or use DB.raw(your query SQL)';
       }
@@ -28,7 +30,10 @@ class Where {
         final p0 = sql.paramsCode;
         sql.params[p0] = arg2;
         sql.query.add('$argWhere $arg1=@$p0');
-        return Filter();
+
+        return T.toString() == Filter.nameInstanceClass
+            ? Filter() as T
+            : Exec() as T;
       }
     }
 
@@ -37,20 +42,28 @@ class Where {
         final p0 = sql.paramsCode;
         sql.params[p0] = arg3;
         sql.query.add('$argWhere $arg1$arg2@$p0');
-        return Filter();
+
+        return T.toString() == Filter.nameInstanceClass
+            ? Filter() as T
+            : Exec() as T;
       }
       if (arg1 is String && arg2 is WhereType) {
         final p0 = sql.paramsCode;
         sql.params[p0] = arg3;
         sql.query.add('$argWhere $arg1${arg2.value}@$p0');
-        return Filter();
+
+        return T.toString() == Filter.nameInstanceClass
+            ? Filter() as T
+            : Exec() as T;
       }
     }
     throw 'requires checking the parameters sent in WHERE';
   }
 }
 
-class Filter extends Data with Where {
+class Filter extends Data with Where<Filter> {
+  static String get nameInstanceClass => 'Filter';
+
   Data orderBy() {
     return Data();
   }
@@ -61,47 +74,5 @@ class Filter extends Data with Where {
 
   Data groupBy() {
     return Data();
-  }
-}
-
-class Data extends DataModel {
-  Future<List<JMap>> get([
-    List<String> parameters = const [],
-  ]) async {
-    final sql = SQLquery.instance;
-
-    if (sql.query.isEmpty) {
-      sql.query.add('SELECT * FROM ${sql.table}');
-      return sql.executeQuerySQL<JMap>();
-    }
-    sql.query.insert(0, 'SELECT * FROM ${sql.table}');
-    return sql.executeQuerySQL<JMap>();
-  }
-
-  String toSQL() {
-    final sql = SQLquery.instance;
-    if (sql.query.isEmpty) {
-      sql.query.add('SELECT * FROM ${sql.table}');
-      return sql.getSQL();
-    }
-    sql.query.insert(0, 'SELECT * FROM ${sql.table}');
-    return sql.getSQL();
-  }
-
-  Future<Map<String, dynamic>> first() async {
-    return {};
-  }
-}
-
-class DataModel {
-  Future<List<T>> getModel<T>(JMapToModel<T> transform) async {
-    final sql = SQLquery.instance;
-
-    if (sql.query.isEmpty) {
-      sql.query.add('SELECT * FROM ${sql.table}');
-      return sql.executeQuerySQL<T>(transform);
-    }
-
-    return sql.executeQuerySQL<T>(transform);
   }
 }

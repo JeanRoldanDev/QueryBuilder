@@ -1,8 +1,9 @@
+import 'package:query_builder/src/data.dart';
 import 'package:query_builder/src/exec.dart';
 import 'package:query_builder/src/sql_query.dart';
 import 'package:query_builder/src/where.dart';
 
-class Table extends Data with Where {
+class Table extends Data with Where<Filter> {
   Table(this.tableName);
 
   final String tableName;
@@ -46,11 +47,26 @@ class Table extends Data with Where {
     return Exec();
   }
 
-  Where select() {
-    return Where();
+  Where<Exec> update(Map<String, dynamic> value) {
+    final sql = SQLquery.instance;
+    sql.query.add('UPDATE ${sql.table} SET');
+
+    final values = <String>[];
+    value.forEach((key, value) {
+      final p0 = sql.paramsCode;
+      sql.params[p0] = value;
+      values.add('$key=@$p0');
+    });
+    sql.query.add(values.join(', '));
+
+    return Where<Exec>();
   }
 
-  Where selectDistinct() {
-    return Where();
+  Where<Filter> select() {
+    return Where<Filter>();
+  }
+
+  Where<Filter> selectDistinct() {
+    return Where<Filter>();
   }
 }

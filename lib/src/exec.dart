@@ -1,6 +1,7 @@
 import 'package:query_builder/src/sql_query.dart';
+import 'package:query_builder/src/where.dart';
 
-class Exec {
+class Exec extends Where<Exec> {
   String toSQL() {
     return SQLquery.instance.getSQL();
   }

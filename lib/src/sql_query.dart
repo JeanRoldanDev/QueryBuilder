@@ -24,7 +24,12 @@ class SQLquery {
 
   String getSQL() {
     final sql = query.join(' ');
-    return PostgreSQLFormat.substitute(sql, params);
+    final queryResult = PostgreSQLFormat.substitute(sql, params);
+    print('==============================================================>');
+    print('1) QUERY: $sql');
+    print('2) PARAMETER: $params');
+    print('3) SQL EXECUTE QUERY: $queryResult');
+    return queryResult;
   }
 
   String cleanRaw(String fmtString) {
