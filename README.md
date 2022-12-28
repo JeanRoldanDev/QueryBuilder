@@ -1,8 +1,17 @@
-<h1 style="text-align:center;color:white;background:#171923">
-<img src="https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/zebra.png" width="128"/>
-<BR>
-Database: Query Builder
-</h1>
+
+
+
+<h1>Database: Query Builder</h1>
+<img src="https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/
+zebra.png" width="128"/>
+
+
+Developed with 💙 by [Jean Roldan][JeanRoldanDev_link]
+
+[![pub package][pub_badge]][pub_badge_link]
+[![License: MIT][license_badge]][license_badge_link]
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+
 
 - [Introduction](#-introduction)
 - [Insert](#-insert-into-statements)
@@ -179,3 +188,10 @@ DB.table('persons')
 
 ### Truncate table
 <h1>🦖</h1>
+
+[pub_badge_link]: https://pub.dartlang.org/packages/database_query_builder
+[pub_badge]: https://img.shields.io/pub/v/very_good_analysis.svg
+[license_badge_link]: https://opensource.org/licenses/MIT
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[badge_link]: https://pub.dev/packages/very_good_analysis
+[JeanRoldanDev_link]: https://jeanroldan.dev/
