@@ -1,5 +1,5 @@
 <h1 style="text-align:center;color:white;background:#171923">
-<img src="./doc/zebra.png" width="128"/>
+<img src="https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/zebra.png" width="128"/>
 <BR>
 Database: Query Builder
 </h1>
