@@ -2,9 +2,10 @@
 
 
 <h1>Database: Query Builder</h1>
-<img src="https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/
-zebra.png" width="128"/>
 
+<p align="left">
+  <img src="https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/zebra.png" width="128" />
+</p>
 
 Developed with 💙 by [Jean Roldan][JeanRoldanDev_link]
 
@@ -190,6 +191,9 @@ DB.table('persons')
 
 ### Truncate table
 <h1>🦖</h1>
+
+[logo_black]: https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/zebra.png#gh-light-mode-only
+[logo_white]: https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/zebra.png#gh-dark-mode-only
 
 [pub_badge_link]: https://pub.dartlang.org/packages/database_query_builder
 [pub_badge]: https://img.shields.io/pub/v/very_good_analysis.svg
