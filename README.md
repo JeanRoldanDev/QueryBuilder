@@ -28,6 +28,8 @@ The Database Query Builder for Dart provides an easy, efficient, and fluid inter
 
 This project will momentarily depend on our source postgres library to connect to this manager and execute queries, although it is true, there are multiple ORM-based libraries, but we want to do something of our own, something CRAZY!
 
+You can perform tests using [our files](./doc/config_postgresql.md) or use your own database, without fear of success
+
 ## # Data Methods
 We have several methods to bring information from our queries:
 `get()` Returns a list of type map<String,dynamic> depending on our queries
