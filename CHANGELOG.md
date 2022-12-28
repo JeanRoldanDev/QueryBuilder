@@ -1,5 +1,7 @@
-## 0.0.2
+## 0.0.3
+- Update Docs.
 
+## 0.0.2
 - Structure and methods.
 
 ## 0.0.1
