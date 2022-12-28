@@ -55,5 +55,6 @@ Use any client to connect, in our case we are using [DBeaver](https://dbeaver.io
 ### 6) Execute the sql
 We provide these SQL files for you to perform all the tests of this nice package, you can also use your own databases
 
-[table_product.sql]()
-[table_category.sql]()
+[table_product.sql](https://raw.githubusercontent.com/JeanRoldanDev/query_builder/feature/0.0.6/doc/files/table_product.sql)
+
+[table_category.sql](https://raw.githubusercontent.com/JeanRoldanDev/query_builder/feature/0.0.6/doc/files/table_category.sql)
