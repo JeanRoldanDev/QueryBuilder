@@ -1,3 +1,6 @@
+## 0.0.4
+- Change Icon final.
+
 ## 0.0.3
 - Update Docs.
 
