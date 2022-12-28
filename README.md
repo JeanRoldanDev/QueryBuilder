@@ -4,15 +4,15 @@
 Database: Query Builder
 </h1>
 
-- [Introduction](#introduction)
-- [Insert](#insert-into-statements)
-- [Select](#select-statements)
-- [Where](#where-statements)
-- [Update](#update-set-statements)
-- [Delete](#delete-statements)
-- [Join](#join-statements)
-- [Filter](#filters)
-- [Table](#table)
+- [Introduction](#-introduction)
+- [Insert](#-insert-into-statements)
+- [Select](#-select-statements)
+- [Where](#-where-statements)
+- [Update](#-update-set-statements)
+- [Delete](#-delete-statements)
+- [Join](#-join-statements)
+- [Filter](#-filters)
+- [Table](#-table)
 
 # # Introduction 
 The Database Query Builder for Dart provides an easy, efficient, and fluid interface for building or running database queries. It can be used to perform most basic (Temporary) database operations and works perfectly with postgresql we hope to add support for other managers later.
