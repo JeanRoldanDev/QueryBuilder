@@ -19,6 +19,7 @@ class SQLquery {
   String table = '';
   List<String> query = [];
   Map<String, dynamic> params = {};
+  List<String> selects = [];
   String get paramsCode => 'p${params.keys.length}';
   DBconnect? dbconnect;
 

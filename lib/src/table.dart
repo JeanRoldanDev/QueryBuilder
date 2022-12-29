@@ -3,7 +3,7 @@ import 'package:database_query_builder/src/exec.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 import 'package:database_query_builder/src/where.dart';
 
-class Table extends Data with Where<Filter> {
+class Table extends Data {
   Table(this.tableName);
 
   final String tableName;
@@ -62,11 +62,16 @@ class Table extends Data with Where<Filter> {
     return Where<Exec>();
   }
 
-  Where<Filter> select() {
+  Where<Filter> select(List<String> parameters) {
+    SQLquery.instance.selects = parameters;
     return Where<Filter>();
   }
 
   Where<Filter> selectDistinct() {
     return Where<Filter>();
+  }
+
+  Filter where([dynamic arg1, dynamic arg2, dynamic arg3]) {
+    return Where.whereInternal(arg1, arg2, arg3);
   }
 }

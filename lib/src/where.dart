@@ -6,7 +6,12 @@ import 'package:database_query_builder/src/models.dart';
 import 'package:database_query_builder/src/sql_enums.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 
-class Where<T> {
+// class Where<T> extends Data {
+class Where<T> extends Data {
+  static T whereInternal<T>([dynamic arg1, dynamic arg2, dynamic arg3]) {
+    return Where<T>().where(arg1, arg2, arg3);
+  }
+
   T where([dynamic arg1, dynamic arg2, dynamic arg3]) {
     final sql = SQLquery.instance;
     final whereExist = sql.query.where((e) => e.contains('WHERE')).length;
@@ -61,7 +66,7 @@ class Where<T> {
   }
 }
 
-class Filter extends Data with Where<Filter> {
+class Filter extends Data {
   static String get nameInstanceClass => 'Filter';
 
   Data orderBy() {
