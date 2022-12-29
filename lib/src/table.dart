@@ -66,4 +66,10 @@ class Table extends Select with Data, DataSQL, DataModel {
 
     return WhereExec();
   }
+
+  WhereExec delete() {
+    final sql = SQLquery.instance;
+    sql.query.add('DELETE FROM ${sql.table}');
+    return WhereExec();
+  }
 }
