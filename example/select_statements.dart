@@ -2,11 +2,21 @@
 
 import 'package:database_query_builder/query_builder.dart';
 
+import 'models/people.dart';
+
 class SelectStatements {
   static Future<void> select() async {
+    // Select direct
+    final sql0 = await DB.table('people').get();
+    print(sql0);
+
     // Select simple
     final sql1 = DB.table('people').toSQL();
     print(sql1);
+
+    // Select direct to Model
+    final sqlModel = DB.table('people').getModel<People>(People.fromJson);
+    print(sqlModel);
 
     // Select simple with not parameters
     final sql2 = DB.table('people').select([]).toSQL();

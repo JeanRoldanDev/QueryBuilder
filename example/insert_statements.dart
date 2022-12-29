@@ -4,18 +4,23 @@ import 'package:database_query_builder/query_builder.dart';
 
 class InsertStatements {
   static Future<void> insert() async {
-    final sql = await DB.table('people').insert(
+    final execQuery = DB.table('people').insert(
       {
         'first_name': 'new first name',
         'last_name': 'new last name',
         'age': 28,
       },
-    ).save();
-    print('INSERT: $sql');
+    );
+
+    final sqlQuery = await execQuery.save();
+    print('INSERT ROWS: $sqlQuery');
+
+    final sql = execQuery.toSQL();
+    print('SQL: $sql');
   }
 
   static Future<void> insertAll() async {
-    final sql = await DB.table('people').insertAll([
+    final execQuery = DB.table('people').insertAll([
       {
         'first_name': 'new first name 1',
         'last_name': 'new first last name 1',
@@ -31,7 +36,12 @@ class InsertStatements {
         'last_name': 'new first last name 3',
         'age': 118,
       }
-    ]).save();
-    print('INSERT ALL: $sql');
+    ]);
+
+    final sqlQuery = await execQuery.save();
+    print('INSERT ROWS: $sqlQuery');
+
+    final sql = execQuery.toSQL();
+    print('SQL: $sql');
   }
 }
