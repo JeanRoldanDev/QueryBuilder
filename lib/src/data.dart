@@ -19,11 +19,6 @@ mixin Data {
 mixin DataSQL {
   String toSQL() {
     final sql = SQLquery.instance;
-    if (sql.query.isEmpty) {
-      sql.query.add('SELECT * FROM ${sql.table}');
-      return sql.getSQL();
-    }
-    sql.query.insert(0, 'SELECT * FROM ${sql.table}');
     return sql.getSQL();
   }
 }
