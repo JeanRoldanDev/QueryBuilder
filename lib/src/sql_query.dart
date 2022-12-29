@@ -27,9 +27,9 @@ class SQLquery {
     final sql = query.join(' ');
     final queryResult = PostgreSQLFormat.substitute(sql, params);
     print('==============================================================>');
-    print('1) QUERY: $sql');
-    print('2) PARAMETER: $params');
-    print('3) SQL EXECUTE QUERY: $queryResult');
+    // print('1) QUERY: $sql');
+    // print('2) PARAMETER: $params');
+    print('SQL: $queryResult');
     return queryResult;
   }
 
@@ -51,9 +51,10 @@ class SQLquery {
 
     final sql = query.join(' ');
     print('==============================================================>');
-    print('1) QUERY: $sql');
-    print('2) PARAMETER: $params');
-    print('3) SQL EXECUTE QUERY: ${PostgreSQLFormat.substitute(sql, params)}');
+    // print('1) QUERY: $sql');
+    // print('2) PARAMETER: $params');
+    // print('3) SQL EXECUTE QUERY: ${PostgreSQLFormat.substitute(sql, params)}');
+    print('SQL: ${PostgreSQLFormat.substitute(sql, params)}');
 
     final response = await connect.connection!.query(
       sql,

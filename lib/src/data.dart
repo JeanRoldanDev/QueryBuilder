@@ -1,6 +1,6 @@
 import 'package:database_query_builder/src/sql_query.dart';
 
-class Data extends DataModel {
+mixin Data {
   Future<List<JMap>> get() async {
     final sql = SQLquery.instance;
 
@@ -14,7 +14,9 @@ class Data extends DataModel {
 
     return sql.executeQuerySQL<JMap>();
   }
+}
 
+mixin DataSQL {
   String toSQL() {
     final sql = SQLquery.instance;
     if (sql.query.isEmpty) {
@@ -26,7 +28,7 @@ class Data extends DataModel {
   }
 }
 
-class DataModel {
+mixin DataModel {
   Future<List<T>> getModel<T>(JMapToModel<T> transform) async {
     final sql = SQLquery.instance;
 

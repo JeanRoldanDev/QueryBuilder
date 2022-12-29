@@ -1,22 +1,12 @@
-// ignore_for_file: avoid_print, unnecessary_type_check
-
 import 'package:database_query_builder/src/data.dart';
 import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/src/filter.dart';
 import 'package:database_query_builder/src/models.dart';
+import 'package:database_query_builder/src/select.dart';
 import 'package:database_query_builder/src/sql_enums.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 
-// class Where<T> extends Data {
-class Where<T> extends Data {
-  static T whereInternal<T>([dynamic arg1, dynamic arg2, dynamic arg3]) {
-    return Where<T>().where(arg1, arg2, arg3);
-  }
-
-  Where<T> select(List<String> parameters) {
-    SQLquery.instance.selects.addAll(parameters);
-    return Where<T>();
-  }
-
+class Where<T> extends Select with Data, DataSQL {
   T where([dynamic arg1, dynamic arg2, dynamic arg3]) {
     final sql = SQLquery.instance;
     final whereExist = sql.query.where((e) => e.contains('WHERE')).length;
@@ -68,21 +58,5 @@ class Where<T> extends Data {
       }
     }
     throw 'requires checking the parameters sent in WHERE';
-  }
-}
-
-class Filter extends Data {
-  static String get nameInstanceClass => 'Filter';
-
-  Data orderBy() {
-    return Data();
-  }
-
-  Data limit() {
-    return Data();
-  }
-
-  Data groupBy() {
-    return Data();
   }
 }

@@ -1,9 +1,10 @@
 import 'package:database_query_builder/src/data.dart';
 import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/src/select.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 import 'package:database_query_builder/src/where.dart';
 
-class Table extends Data {
+class Table extends Select with Data, DataSQL, DataModel {
   Table(this.tableName);
 
   final String tableName;
@@ -60,18 +61,5 @@ class Table extends Data {
     sql.query.add(values.join(', '));
 
     return Where<Exec>();
-  }
-
-  Where<Filter> select(List<String> parameters) {
-    SQLquery.instance.selects.addAll(parameters);
-    return Where<Filter>();
-  }
-
-  Where<Filter> selectDistinct() {
-    return Where<Filter>();
-  }
-
-  Filter where([dynamic arg1, dynamic arg2, dynamic arg3]) {
-    return Where.whereInternal(arg1, arg2, arg3);
   }
 }
