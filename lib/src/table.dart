@@ -11,7 +11,11 @@ class Table extends Select with Data, DataSQL, DataModel {
 
   static final query = <String>[];
 
-  Exec insert(Map<String, dynamic> value) {
+  Execute drop() => Execute();
+
+  Execute truncate() => Execute();
+
+  Execute insert(Map<String, dynamic> value) {
     final sql = SQLquery.instance;
     sql.query.add('INSERT INTO ${sql.table}');
     sql.query.add('(${value.keys.join(', ')})');
@@ -25,10 +29,10 @@ class Table extends Select with Data, DataSQL, DataModel {
 
     sql.query.add('VALUES (${values.join(', ')})');
 
-    return Exec();
+    return Execute();
   }
 
-  Exec insertAll(List<JMap> values) {
+  Execute insertAll(List<JMap> values) {
     final sql = SQLquery.instance;
     sql.query.add('INSERT INTO ${sql.table}');
     sql.query.add('(${values.first.keys.join(', ')})');
@@ -45,10 +49,10 @@ class Table extends Select with Data, DataSQL, DataModel {
       listValues.add('(${values.join(', ')})');
     }
     sql.query.add('${listValues.join(', ')};');
-    return Exec();
+    return Execute();
   }
 
-  Where<Exec> update(Map<String, dynamic> value) {
+  WhereExec update(Map<String, dynamic> value) {
     final sql = SQLquery.instance;
     sql.query.add('UPDATE ${sql.table} SET');
 
@@ -60,6 +64,6 @@ class Table extends Select with Data, DataSQL, DataModel {
     });
     sql.query.add(values.join(', '));
 
-    return Where<Exec>();
+    return WhereExec();
   }
 }
