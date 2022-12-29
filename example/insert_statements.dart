@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: cascade_invocations
 
 import 'package:database_query_builder/query_builder.dart';
 
@@ -12,11 +12,8 @@ class InsertStatements {
       },
     );
 
-    final sqlQuery = await execQuery.save();
-    print('INSERT ROWS: $sqlQuery');
-
-    final sql = execQuery.toSQL();
-    print('SQL: $sql');
+    execQuery.toSQL();
+    await execQuery.save();
   }
 
   static Future<void> insertAll() async {
@@ -38,10 +35,7 @@ class InsertStatements {
       }
     ]);
 
-    final sqlQuery = await execQuery.save();
-    print('INSERT ROWS: $sqlQuery');
-
-    final sql = execQuery.toSQL();
-    print('SQL: $sql');
+    execQuery.toSQL();
+    await execQuery.save();
   }
 }
