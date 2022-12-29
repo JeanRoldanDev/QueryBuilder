@@ -26,9 +26,11 @@ class DB {
   }
 
   static Table table(String name) {
-    SQLquery.instance.query.clear();
-    SQLquery.instance.params.clear();
-    SQLquery.instance.table = name;
+    final sqlQuery = SQLquery.instance;
+    sqlQuery.query.clear();
+    sqlQuery.params.clear();
+    sqlQuery.selects.clear();
+    sqlQuery.table = name;
     return Table(name);
   }
 

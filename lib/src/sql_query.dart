@@ -66,7 +66,11 @@ class SQLquery {
       final map = <String, dynamic>{};
       for (var i = 0; i < row.columnDescriptions.length; i++) {
         final column = row.columnDescriptions;
-        map[column[i].columnName] = row[i];
+        var key = column[i].columnName;
+        if (map.containsKey(key)) {
+          key = '$key' '_column$i';
+        }
+        map[key] = row[i];
       }
 
       if (transform != null) {

@@ -12,6 +12,11 @@ class Where<T> extends Data {
     return Where<T>().where(arg1, arg2, arg3);
   }
 
+  Where<T> select(List<String> parameters) {
+    SQLquery.instance.selects.addAll(parameters);
+    return Where<T>();
+  }
+
   T where([dynamic arg1, dynamic arg2, dynamic arg3]) {
     final sql = SQLquery.instance;
     final whereExist = sql.query.where((e) => e.contains('WHERE')).length;

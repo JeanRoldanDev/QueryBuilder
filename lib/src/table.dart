@@ -63,7 +63,7 @@ class Table extends Data {
   }
 
   Where<Filter> select(List<String> parameters) {
-    SQLquery.instance.selects = parameters;
+    SQLquery.instance.selects.addAll(parameters);
     return Where<Filter>();
   }
 
