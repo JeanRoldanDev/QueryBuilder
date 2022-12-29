@@ -6,46 +6,33 @@ import 'models/people.dart';
 
 class SelectStatements {
   static Future<void> select() async {
+    final table = DB.table('people');
     // Select direct
-    final sql0 = await DB.table('people').get();
-    print(sql0);
+    await table.get();
 
     // Select simple
-    final sql1 = DB.table('people').toSQL();
-    print(sql1);
+    table.toSQL();
 
     // Select direct to Model
-    final sqlModel = DB.table('people').getModel<People>(People.fromJson);
-    print(sqlModel);
+    await table.getModel<People>(People.fromJson);
 
     // Select simple with not parameters
-    final sql2 = DB.table('people').select([]).toSQL();
-    print(sql2);
+    table.select([]).toSQL();
 
     // Select simple with  parameters
-    final sql3 = DB.table('people').select(['first_name', 'age']).toSQL();
-    print(sql3);
+    table.select(['first_name', 'age']).toSQL();
 
     // Select with where
-    final sql4 =
-        DB.table('people').select(['first_name', 'age']).where('id', 5).toSQL();
-    print(sql4);
+    table.select(['first_name', 'age']).where('id', 5).toSQL();
 
     // Select nested
-    final sql5 = DB
-        .table('people')
-        .select(['first_name', 'age']).select(['last_name']).toSQL();
-    print(sql5);
+    table.select(['first_name', 'age']).select(['last_name']).toSQL();
 
     // nested select with repeated parameters
-    final sql6 = DB
-        .table('people')
-        .select(['first_name', 'age']).select(['age']).toSQL();
-    print(sql6);
+    table.select(['first_name', 'age']).select(['age']).toSQL();
 
-    final sql6Data = await DB
-        .table('people')
-        .select(['first_name', 'age']).select(['age']).get();
-    print(sql6Data);
+    final keys =
+        await table.select(['first_name', 'age']).select(['age']).get();
+    print(keys.first.keys);
   }
 }
