@@ -24,11 +24,14 @@ class SQLquery {
   DBconnect? dbconnect;
 
   String getSQL() {
+    if (query.isEmpty) {
+      return 'SELECT * FROM $table';
+    }
+
     final sql = query.join(' ');
     final queryResult = PostgreSQLFormat.substitute(sql, params);
+    selects.clear();
     print('==============================================================>');
-    // print('1) QUERY: $sql');
-    // print('2) PARAMETER: $params');
     print('SQL: $queryResult');
     return queryResult;
   }
@@ -51,9 +54,6 @@ class SQLquery {
 
     final sql = query.join(' ');
     print('==============================================================>');
-    // print('1) QUERY: $sql');
-    // print('2) PARAMETER: $params');
-    // print('3) SQL EXECUTE QUERY: ${PostgreSQLFormat.substitute(sql, params)}');
     print('SQL: ${PostgreSQLFormat.substitute(sql, params)}');
 
     final response = await connect.connection!.query(
@@ -80,7 +80,8 @@ class SQLquery {
         result.add(map as T);
       }
     }
-
+    query.clear();
+    selects.clear();
     return result;
   }
 
@@ -98,14 +99,13 @@ class SQLquery {
 
     final sql = query.join(' ');
     print('==============================================================>');
-    print('1) QUERY: $sql');
-    print('2) PARAMETER: $params');
-    print('3) SQL EXECUTE QUERY: ${PostgreSQLFormat.substitute(sql, params)}');
+    print('SQL: ${PostgreSQLFormat.substitute(sql, params)}');
 
     final result = await connect.connection!.execute(
       sql,
       substitutionValues: params,
     );
+    print('AFFECTED ROWS:: $result');
 
     return result;
   }
