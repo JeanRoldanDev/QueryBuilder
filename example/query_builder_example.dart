@@ -1,5 +1,7 @@
 import 'package:database_query_builder/query_builder.dart';
 
+import 'update_statements.dart';
+
 Future<void> main() async {
   DB.conexion(
     databaseName: 'dartpay',
@@ -9,8 +11,6 @@ Future<void> main() async {
   //=========================================================
   //==================> DATA METHODS Statements <=============
   // await DataMethods.get();
-  // await DataMethods.getModel();
-  // await DataMethods.toSql();
 
   //=========================================================
   //==================> INSERT INTO Statements <=============
@@ -20,6 +20,10 @@ Future<void> main() async {
   //=========================================================
   //==================> SELECT Statements <==================
   // await SelectStatements.select();
+
+  //=========================================================
+  //==================> UPDATE Statements <==================
+  await UpdateStatements.updateNotWhere();
 
   //=========================================================
   //==================> WHERE Statements <==================
