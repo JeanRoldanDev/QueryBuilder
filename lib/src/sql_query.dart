@@ -82,8 +82,6 @@ class SQLquery {
         result.add(map as T);
       }
     }
-    query.clear();
-    selects.clear();
     return result;
   }
 

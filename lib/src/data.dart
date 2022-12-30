@@ -2,16 +2,7 @@ import 'package:database_query_builder/src/sql_query.dart';
 
 mixin Data {
   Future<List<JMap>> get() async {
-    final sql = SQLquery.instance;
-
-    if (sql.query.isEmpty && sql.selects.isEmpty) {
-      sql.query.add('SELECT * FROM ${sql.table}');
-      return sql.executeQuerySQL<JMap>();
-    }
-
-    final select = sql.selects.join(', ');
-    sql.query.insert(0, 'SELECT $select FROM ${sql.table}');
-
+    final sql = SQLquery.instance..validateEnpty();
     return sql.executeQuerySQL<JMap>();
   }
 }
