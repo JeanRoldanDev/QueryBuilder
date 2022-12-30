@@ -1,13 +1,37 @@
-// ignore_for_file: avoid_print, unnecessary_type_check
+// ignore_for_file: avoid_print
 
-import 'package:database_query_builder/src/data.dart';
 import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/src/filter.dart';
 import 'package:database_query_builder/src/models.dart';
 import 'package:database_query_builder/src/sql_enums.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 
-class Where<T> {
-  T where([dynamic arg1, dynamic arg2, dynamic arg3]) {
+abstract class WhereImpl<T> {
+  T where([dynamic arg1, dynamic arg2, dynamic arg3]);
+  T whereIN(String column, List<dynamic> values);
+  T whereOR();
+  T whereNull();
+
+  static T whereINFunc<T>(String column, List<dynamic> params) {
+    final sql = SQLquery.instance;
+    final whereExist = sql.query.where((e) => e.contains('WHERE')).length;
+    final argWhere = whereExist > 0 ? 'AND' : 'WHERE';
+
+    sql.validateEnpty();
+
+    final values = <String>[];
+    for (final value in params) {
+      final p0 = sql.paramsCode;
+      sql.params[p0] = value;
+      values.add('@$p0');
+    }
+
+    sql.query.add('$argWhere $column IN (${values.join(', ')})');
+
+    return T.toString() == Where.nameInstance ? Where() as T : WhereExec() as T;
+  }
+
+  static T whereFunc<T>([dynamic arg1, dynamic arg2, dynamic arg3]) {
     final sql = SQLquery.instance;
     final whereExist = sql.query.where((e) => e.contains('WHERE')).length;
     final argWhere = whereExist > 0 ? 'AND' : 'WHERE';
@@ -16,63 +40,90 @@ class Where<T> {
       throw 'required parameters for WHERE';
     }
 
+    sql.validateEnpty();
+
+    //============ Valid for one Arguments
     if (arg1 != null && arg2 == null && arg2 == null) {
       if (arg1 is SqlQuery) {
         sql.query.add('$argWhere ${arg1.value}');
-        return T is Filter ? Filter() as T : Exec() as T;
+        return T is Where ? Where() as T : WhereExec() as T;
       } else {
-        throw 'required parameters for WHERE, or use DB.raw(your query SQL)';
+        return throw 'required parameters for WHERE, or use '
+            'DB.raw(your query SQL) else minimum two parameters are required';
       }
     }
 
+    //============ Valid for two Arguments
     if (arg1 != null && arg2 != null && arg3 == null) {
       if (arg1 is String) {
         final p0 = sql.paramsCode;
         sql.params[p0] = arg2;
         sql.query.add('$argWhere $arg1=@$p0');
 
-        return T.toString() == Filter.nameInstanceClass
-            ? Filter() as T
-            : Exec() as T;
+        return T.toString() == Where.nameInstance
+            ? Where() as T
+            : WhereExec() as T;
       }
     }
 
+    //============ Valid for three Arguments
     if (arg1 != null && arg2 != null && arg3 != null) {
       if (arg1 is String && arg2 is String) {
         final p0 = sql.paramsCode;
         sql.params[p0] = arg3;
         sql.query.add('$argWhere $arg1$arg2@$p0');
 
-        return T.toString() == Filter.nameInstanceClass
-            ? Filter() as T
-            : Exec() as T;
+        return T.toString() == Where.nameInstance
+            ? Where() as T
+            : WhereExec() as T;
       }
       if (arg1 is String && arg2 is WhereType) {
         final p0 = sql.paramsCode;
         sql.params[p0] = arg3;
         sql.query.add('$argWhere $arg1${arg2.value}@$p0');
 
-        return T.toString() == Filter.nameInstanceClass
-            ? Filter() as T
-            : Exec() as T;
+        return T.toString() == Where.nameInstance
+            ? Where() as T
+            : WhereExec() as T;
       }
     }
-    throw 'requires checking the parameters sent in WHERE';
+    return throw 'requires checking the parameters sent in WHERE';
   }
 }
 
-class Filter extends Data with Where<Filter> {
-  static String get nameInstanceClass => 'Filter';
+class Where extends Filter implements WhereImpl<Where> {
+  static String get nameInstance => Where().runtimeType.toString();
 
-  Data orderBy() {
-    return Data();
+  @override
+  Where where([dynamic arg1, dynamic arg2, dynamic arg3]) =>
+      WhereImpl.whereFunc<Where>(arg1, arg2, arg3);
+
+  @override
+  Where whereIN(String column, List<dynamic> values) {
+    return WhereImpl.whereINFunc<Where>(column, values);
   }
 
-  Data limit() {
-    return Data();
-  }
+  @override
+  Where whereOR() => throw UnimplementedError('whereOR not available');
 
-  Data groupBy() {
-    return Data();
-  }
+  @override
+  Where whereNull() => throw UnimplementedError('whereOR not available');
+}
+
+class WhereExec extends Execute implements WhereImpl<WhereExec> {
+  static String get nameInstance => WhereExec().runtimeType.toString();
+
+  @override
+  WhereExec where([dynamic arg1, dynamic arg2, dynamic arg3]) =>
+      WhereImpl.whereFunc<WhereExec>(arg1, arg2, arg3);
+
+  @override
+  WhereExec whereIN(String column, List<dynamic> values) =>
+      WhereImpl.whereINFunc<WhereExec>(column, values);
+
+  @override
+  WhereExec whereOR() => throw UnimplementedError('whereOR not available');
+
+  @override
+  WhereExec whereNull() => throw UnimplementedError('whereOR not available');
 }

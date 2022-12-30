@@ -4,8 +4,7 @@ enum WhereType {
   lessThan('<'),
   greaterThanOrEqual('>='),
   lessThanOrEqual('<='),
-  between('BETWEEN'),
-  like('LIKE'),
+  like(' LIKE '),
   ;
 
   const WhereType(this.value);

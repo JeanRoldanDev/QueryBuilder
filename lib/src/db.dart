@@ -6,7 +6,6 @@ typedef Converter<T> = T Function(Map<String, dynamic> row)?;
 
 class DB {
   static late DBconnect? _dbConnect;
-  static DBconnect get getConexion => _dbConnect!;
 
   static void conexion({
     String host = 'localhost',
@@ -26,9 +25,11 @@ class DB {
   }
 
   static Table table(String name) {
-    SQLquery.instance.query.clear();
-    SQLquery.instance.params.clear();
-    SQLquery.instance.table = name;
+    final sqlQuery = SQLquery.instance;
+    sqlQuery.query.clear();
+    sqlQuery.params.clear();
+    sqlQuery.selects.clear();
+    sqlQuery.table = name;
     return Table(name);
   }
 

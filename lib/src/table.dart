@@ -1,16 +1,21 @@
 import 'package:database_query_builder/src/data.dart';
 import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/src/select.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 import 'package:database_query_builder/src/where.dart';
 
-class Table extends Data with Where<Filter> {
+class Table extends Select with Data, DataSQL, DataModel {
   Table(this.tableName);
 
   final String tableName;
 
   static final query = <String>[];
 
-  Exec insert(Map<String, dynamic> value) {
+  Execute drop() => Execute();
+
+  Execute truncate() => Execute();
+
+  Execute insert(Map<String, dynamic> value) {
     final sql = SQLquery.instance;
     sql.query.add('INSERT INTO ${sql.table}');
     sql.query.add('(${value.keys.join(', ')})');
@@ -24,10 +29,10 @@ class Table extends Data with Where<Filter> {
 
     sql.query.add('VALUES (${values.join(', ')})');
 
-    return Exec();
+    return Execute();
   }
 
-  Exec insertAll(List<JMap> values) {
+  Execute insertAll(List<JMap> values) {
     final sql = SQLquery.instance;
     sql.query.add('INSERT INTO ${sql.table}');
     sql.query.add('(${values.first.keys.join(', ')})');
@@ -44,10 +49,10 @@ class Table extends Data with Where<Filter> {
       listValues.add('(${values.join(', ')})');
     }
     sql.query.add('${listValues.join(', ')};');
-    return Exec();
+    return Execute();
   }
 
-  Where<Exec> update(Map<String, dynamic> value) {
+  WhereExec update(Map<String, dynamic> value) {
     final sql = SQLquery.instance;
     sql.query.add('UPDATE ${sql.table} SET');
 
@@ -57,16 +62,17 @@ class Table extends Data with Where<Filter> {
       sql.params[p0] = value;
       values.add('$key=@$p0');
     });
+
+    if (value.isEmpty) {
+      return throw 'required parameters for UPDATE';
+    }
     sql.query.add(values.join(', '));
-
-    return Where<Exec>();
+    return WhereExec();
   }
 
-  Where<Filter> select() {
-    return Where<Filter>();
-  }
-
-  Where<Filter> selectDistinct() {
-    return Where<Filter>();
+  WhereExec delete() {
+    final sql = SQLquery.instance;
+    sql.query.add('DELETE FROM ${sql.table}');
+    return WhereExec();
   }
 }
