@@ -24,14 +24,18 @@ class SQLquery {
   DBconnect? dbconnect;
 
   String getSQL() {
-    validateEnpty();
+    try {
+      validateEnpty();
 
-    final sql = query.join(' ');
-    final queryResult = PostgreSQLFormat.substitute(sql, params);
-    selects.clear();
-    print('==============================================================>');
-    print('SQL: $queryResult');
-    return queryResult;
+      final sql = query.join(' ');
+      final queryResult = PostgreSQLFormat.substitute(sql, params);
+      selects.clear();
+      print('SQL: $queryResult');
+      return queryResult;
+    } catch (e) {
+      final sql = query.join(' ');
+      return throw 'ERROR IN THE QUERY: $sql WITH PARAMETES" $params';
+    }
   }
 
   String cleanRaw(String fmtString) {
@@ -96,7 +100,6 @@ class SQLquery {
     }
 
     final sql = query.join(' ');
-    print('==============================================================>');
     print('SQL: ${PostgreSQLFormat.substitute(sql, params)}');
 
     final result = await connect.connection!.execute(
@@ -109,8 +112,13 @@ class SQLquery {
   }
 
   void validateEnpty() {
-    if (query.isEmpty) {
+    if (query.isEmpty && selects.isEmpty) {
       query.add('SELECT * FROM $table');
+    }
+
+    if (query.isEmpty && selects.isNotEmpty) {
+      final parameter = selects.join(', ');
+      query.add('SELECT $parameter FROM $table');
     }
   }
 }

@@ -18,17 +18,21 @@ abstract class WhereImpl<T> {
     if (arg1 == null && arg2 == null && arg3 == null) {
       throw 'required parameters for WHERE';
     }
+
     sql.validateEnpty();
+
+    //============ Valid for one Arguments
     if (arg1 != null && arg2 == null && arg2 == null) {
       if (arg1 is SqlQuery) {
         sql.query.add('$argWhere ${arg1.value}');
         return T is Where ? Where() as T : WhereExec() as T;
       } else {
-        throw 'required parameters for WHERE, or use DB.raw(your query SQL) '
-            'else minimum two parameters are required';
+        return throw 'required parameters for WHERE, or use '
+            'DB.raw(your query SQL) else minimum two parameters are required';
       }
     }
 
+    //============ Valid for two Arguments
     if (arg1 != null && arg2 != null && arg3 == null) {
       if (arg1 is String) {
         final p0 = sql.paramsCode;
@@ -41,6 +45,7 @@ abstract class WhereImpl<T> {
       }
     }
 
+    //============ Valid for two Arguments
     if (arg1 != null && arg2 != null && arg3 != null) {
       if (arg1 is String && arg2 is String) {
         final p0 = sql.paramsCode;
@@ -61,7 +66,7 @@ abstract class WhereImpl<T> {
             : WhereExec() as T;
       }
     }
-    throw 'requires checking the parameters sent in WHERE';
+    return throw 'requires checking the parameters sent in WHERE';
   }
 }
 

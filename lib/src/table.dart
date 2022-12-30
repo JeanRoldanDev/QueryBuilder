@@ -62,8 +62,11 @@ class Table extends Select with Data, DataSQL, DataModel {
       sql.params[p0] = value;
       values.add('$key=@$p0');
     });
-    sql.query.add(values.join(', '));
 
+    if (value.isEmpty) {
+      return throw 'required parameters for UPDATE';
+    }
+    sql.query.add(values.join(', '));
     return WhereExec();
   }
 
