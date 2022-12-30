@@ -1,3 +1,12 @@
+## 0.0.6
+- FIXES AND BUGS
+- Extructure with soport join
+- Impl SELECT NESTED
+- Impl DELETE
+- Impl WHERE NESTED
+- Impl WHERE IN
+- Impl UPDATE
+
 ## 0.0.5
 - Update Ref in Docs.
 
