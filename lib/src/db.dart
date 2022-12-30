@@ -6,7 +6,7 @@ typedef Converter<T> = T Function(Map<String, dynamic> row)?;
 
 class DB {
   static late DBconnect? _dbConnect;
-  static DBconnect get getConexion => _dbConnect!;
+  // static DBconnect get getConexion => _dbConnect!;
 
   static void conexion({
     String host = 'localhost',

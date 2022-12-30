@@ -24,9 +24,7 @@ class SQLquery {
   DBconnect? dbconnect;
 
   String getSQL() {
-    if (query.isEmpty) {
-      return 'SELECT * FROM $table';
-    }
+    validateEnpty();
 
     final sql = query.join(' ');
     final queryResult = PostgreSQLFormat.substitute(sql, params);
@@ -108,5 +106,11 @@ class SQLquery {
     print('AFFECTED ROWS:: $result');
 
     return result;
+  }
+
+  void validateEnpty() {
+    if (query.isEmpty) {
+      query.add('SELECT * FROM $table');
+    }
   }
 }
