@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:database_query_builder/query_builder.dart';
+import 'package:database_query_builder/src/db.dart';
 
 import 'models/people.dart';
 

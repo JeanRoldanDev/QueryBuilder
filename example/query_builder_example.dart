@@ -1,4 +1,4 @@
-import 'package:database_query_builder/query_builder.dart';
+import 'package:database_query_builder/src/db.dart';
 
 import 'delete_statements.dart';
 import 'insert_statements.dart';
