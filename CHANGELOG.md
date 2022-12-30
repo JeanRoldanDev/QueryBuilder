@@ -6,6 +6,7 @@
 - Impl WHERE NESTED
 - Impl WHERE IN
 - Impl UPDATE
+- Coverage an Test
 
 ## 0.0.5
 - Update Ref in Docs.

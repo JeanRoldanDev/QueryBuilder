@@ -97,13 +97,40 @@ DB.table('persons').select(['firstName','age']).get();
 
 # # WHERE Statements  
 ### Where Clauses
-<h1>🦖</h1>
+Make simple queries
+```dart
+DB.table('people').where('age', '10').get();
+```
+
+You can also use your own conditionals
+```dart
+await DB.table('people').where('age', '=', 10).get();
+```
+
+otherwise we offer you a strongly typed conditional
+```dart
+await DB.table('people').where('age', WhereType.equal, '10').get();
+await DB.table('people').where('age', WhereType.greaterThan, '10').get();
+await DB.table('people').where('age', WhereType.greaterThanOrEqual, '10').get();
+await DB.table('people').where('age', WhereType.lessThan, '10').get();
+await DB.table('people').where('age', WhereType.lessThanOrEqual, '10').get();
+await DB.table('people').where('age', WhereType.like, '10').get();
+```
 
 ### Where Nested
-<h1>🦖</h1>
+If you already saw how the assignment of `where` statements works, you can do it in nested ways at your whim
+```dart
+DB.table('people')
+  .where('age', 25)
+  .where('age', '=', 10)
+  .where('age', WhereType.greaterThan, 80)
+  .get();
+```
 
 ### Where IN
-<h1>🦖</h1>
+```dart
+DB.table('people').whereIN('age', [10, 20, 30])
+```
 
 ### Where OR
 <h1>🦖</h1>
@@ -139,10 +166,16 @@ DB.table('persons')
 
 # # DELETE Statements  
 ### Delete 
-<h1>🦖</h1>
+You can delete all records from your table
+```dart
+DB.table('people').delete().save()
+```
 
 ### Delete with conditional
-<h1>🦖</h1>
+performs a search for the record to delete
+```dart
+DB.table('people').delete().where('id', 5).save();
+```
 
 # # JOIN Statements  
 ### Join
