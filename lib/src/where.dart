@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:database_query_builder/src/exec.dart';
 import 'package:database_query_builder/src/filter.dart';
 import 'package:database_query_builder/src/models.dart';
@@ -6,9 +8,28 @@ import 'package:database_query_builder/src/sql_query.dart';
 
 abstract class WhereImpl<T> {
   T where([dynamic arg1, dynamic arg2, dynamic arg3]);
-  T whereIN();
+  T whereIN(String column, List<dynamic> values);
   T whereOR();
   T whereNull();
+
+  static T whereINFunc<T>(String column, List<dynamic> params) {
+    final sql = SQLquery.instance;
+    final whereExist = sql.query.where((e) => e.contains('WHERE')).length;
+    final argWhere = whereExist > 0 ? 'AND' : 'WHERE';
+
+    sql.validateEnpty();
+
+    final values = <String>[];
+    for (final value in params) {
+      final p0 = sql.paramsCode;
+      sql.params[p0] = value;
+      values.add('@$p0');
+    }
+
+    sql.query.add('$argWhere $column IN (${values.join(', ')})');
+
+    return T.toString() == Where.nameInstance ? Where() as T : WhereExec() as T;
+  }
 
   static T whereFunc<T>([dynamic arg1, dynamic arg2, dynamic arg3]) {
     final sql = SQLquery.instance;
@@ -45,7 +66,7 @@ abstract class WhereImpl<T> {
       }
     }
 
-    //============ Valid for two Arguments
+    //============ Valid for three Arguments
     if (arg1 != null && arg2 != null && arg3 != null) {
       if (arg1 is String && arg2 is String) {
         final p0 = sql.paramsCode;
@@ -78,7 +99,9 @@ class Where extends Filter implements WhereImpl<Where> {
       WhereImpl.whereFunc<Where>(arg1, arg2, arg3);
 
   @override
-  Where whereIN() => throw UnimplementedError('whereIN not available');
+  Where whereIN(String column, List<dynamic> values) {
+    return WhereImpl.whereINFunc<Where>(column, values);
+  }
 
   @override
   Where whereOR() => throw UnimplementedError('whereOR not available');
@@ -95,7 +118,8 @@ class WhereExec extends Execute implements WhereImpl<WhereExec> {
       WhereImpl.whereFunc<WhereExec>(arg1, arg2, arg3);
 
   @override
-  WhereExec whereIN() => throw UnimplementedError('whereIN not available');
+  WhereExec whereIN(String column, List<dynamic> values) =>
+      WhereImpl.whereINFunc<WhereExec>(column, values);
 
   @override
   WhereExec whereOR() => throw UnimplementedError('whereOR not available');
