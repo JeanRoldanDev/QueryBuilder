@@ -1,4 +1,5 @@
-import 'package:database_query_builder/query_builder.dart';
+import 'package:database_query_builder/src/db.dart';
+import 'package:database_query_builder/src/sql_enums.dart';
 import 'package:database_query_builder/src/where.dart';
 import 'package:test/test.dart';
 
