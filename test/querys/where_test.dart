@@ -6,7 +6,7 @@ void main() {
     try {
       DB.table('people').where();
     } catch (error) {
-      expect(error, 'required parameters for UPDATE');
+      expect(error, 'required parameters for WHERE');
     }
   });
 }

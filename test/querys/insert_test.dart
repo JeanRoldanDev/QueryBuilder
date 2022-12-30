@@ -31,4 +31,28 @@ void main() {
       ),
     );
   });
+
+  test('Table->insert->toSQL', () {
+    final execute = DB.table('people').insertAll([
+      {
+        'first_name': 'new first name 0',
+        'last_name': 'new last name 0',
+        'age': 28,
+      },
+      {
+        'first_name': 'new first name 1',
+        'last_name': 'new last name 1',
+        'age': 6,
+      },
+    ]).toSQL();
+
+    expect(
+      execute,
+      equals(
+        'INSERT INTO people (first_name, last_name, age) VALUES '
+        "('new first name 0', 'new last name 0', 28), "
+        "('new first name 1', 'new last name 1', 6);",
+      ),
+    );
+  });
 }
