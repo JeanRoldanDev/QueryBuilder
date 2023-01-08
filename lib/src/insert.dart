@@ -82,6 +82,11 @@ class Insert {
     sql.query.add(listValues.join(', '));
 
     sql.primaryKey = primaryKey;
+    if (sql.primaryKey != null) {
+      sql.query.add('RETURNING $primaryKey');
+    } else {
+      sql.query.add('RETURNING');
+    }
 
     return ExecuteAffect();
   }
