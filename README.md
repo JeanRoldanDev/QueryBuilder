@@ -82,7 +82,48 @@ final sql03 = await DB.table('persons').insertAll([
 ]).save();
 ```
 ### Inserts Get ID
-<h1>🦖</h1>
+You can get the id of the affected row using insertGetId, this will perform an internal query to get the primary key
+```dart
+final numRowAffected = await DB.table('persons').insertGetId({
+    'firstName': 'testFirstName',
+    'lastName': 'testLastName',
+    'age': 30,
+}).save()
+```
+
+If you want to avoid double query or you do not have the permissions to read these attributes and improve the performance of the query, indicate what is your primary key
+
+```dart
+final numRowAffected = await DB.table('persons').insertGetId({
+    'firstName': 'testFirstName',
+    'lastName': 'testLastName',
+    'age': 30,
+},
+'id').save()
+```
+In the same way you can insert multiple records and get their IDs
+```dart
+final numRowAffected = DB.table('people').insertAllGetIds(
+  [
+    {
+      'first_name': 'new first name 1',
+      'last_name': 'new first last name 1',
+      'age': 12,
+    },
+    {
+      'first_name': 'new first name 2',
+      'last_name': 'new first last name 2',
+      'age': 17,
+    },
+    {
+      'first_name': 'new first last name 3',
+      'last_name': 'new first last name 3',
+      'age': 118,
+    }
+  ],
+  'id',
+);
+```
 
 # # SELECT Statements  
 
