@@ -1,3 +1,7 @@
+## 0.0.7
+- Impl INSERT GET ID
+- Impl INSERT MULTIPLE GET ID
+
 ## 0.0.6
 - FIXES AND BUGS
 - Extructure with soport join

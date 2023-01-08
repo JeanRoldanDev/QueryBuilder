@@ -8,3 +8,11 @@ class Exec {
     return SQLquery.instance.executeSQL();
   }
 }
+
+class ExecuteAffect with ExecAffect, DataSQL {}
+
+class ExecAffect {
+  Future<List<dynamic>> save() async {
+    return SQLquery.instance.executeQuerySQLRowAffect();
+  }
+}

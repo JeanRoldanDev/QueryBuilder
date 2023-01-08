@@ -1,7 +1,4 @@
-import 'package:database_query_builder/query_builder.dart';
-
-import 'delete_statements.dart';
-import 'insert_statements.dart';
+import 'package:database_query_builder/src/db.dart';
 
 Future<void> main() async {
   DB.conexion(
@@ -16,7 +13,9 @@ Future<void> main() async {
   //=========================================================
   //==================> INSERT INTO Statements <=============
   // await InsertStatements.insert();
-  await InsertStatements.insertAll();
+  // await InsertStatements.insertAll();
+  // await InsertStatements.insertGetId();
+  // await InsertStatements.insertAllGetIds();
 
   //=========================================================
   //==================> SELECT Statements <==================
@@ -28,7 +27,7 @@ Future<void> main() async {
 
   //=========================================================
   //==================> DELETE Statements <==================
-  await DeleteStatements.updateNotWhere();
+  // await DeleteStatements.updateNotWhere();
 
   //=========================================================
   //==================> WHERE Statements <==================

@@ -1,6 +1,6 @@
 // ignore_for_file: cascade_invocations
 
-import 'package:database_query_builder/query_builder.dart';
+import 'package:database_query_builder/src/db.dart';
 
 class UpdateStatements {
   static Future<void> updateNotWhere() async {
