@@ -3,7 +3,7 @@ import 'package:database_query_builder/src/exec.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Instance Table->insert', () {
+  test('Instance Table->insert Instance', () {
     final execute = DB.table('people').insert(
       {
         'first_name': 'new first name',
@@ -32,7 +32,7 @@ void main() {
     );
   });
 
-  test('Table->insert->toSQL', () {
+  test('Table->insertAll->toSQL', () {
     final execute = DB.table('people').insertAll([
       {
         'first_name': 'new first name 0',
@@ -52,6 +52,54 @@ void main() {
         'INSERT INTO people (first_name, last_name, age) VALUES '
         "('new first name 0', 'new last name 0', 28), "
         "('new first name 1', 'new last name 1', 6);",
+      ),
+    );
+  });
+
+  test('Instance Table->insertGetId Instance', () {
+    final execute = DB.table('people').insertGetId(
+      {
+        'first_name': 'new first name',
+        'last_name': 'new last name',
+        'age': 28,
+      },
+    );
+    expect(execute, isA<ExecuteAffect>());
+  });
+
+  test('Table->insertGetId->toSQL NO Primary Key', () {
+    final execute = DB.table('people').insertGetId(
+      {
+        'first_name': 'new first name',
+        'last_name': 'new last name',
+        'age': 28,
+      },
+    ).toSQL();
+
+    expect(
+      execute,
+      equals(
+        'INSERT INTO people (first_name, last_name, age) VALUES '
+        "('new first name', 'new last name', 28) RETURNING",
+      ),
+    );
+  });
+
+  test('Table->insertGetId->toSQL', () {
+    final execute = DB.table('people').insertGetId(
+      {
+        'first_name': 'new first name',
+        'last_name': 'new last name',
+        'age': 28,
+      },
+      'id',
+    ).toSQL();
+
+    expect(
+      execute,
+      equals(
+        'INSERT INTO people (first_name, last_name, age) VALUES '
+        "('new first name', 'new last name', 28) RETURNING id",
       ),
     );
   });
