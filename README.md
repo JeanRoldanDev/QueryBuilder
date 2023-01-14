@@ -259,10 +259,16 @@ DB.table('people').delete().where('id', 5).save();
 
 # # TABLE
 ### Drop table
-<h1>🦖</h1>
+
+```dart
+DB.table('persons').drop().save();
+```
 
 ### Truncate table
-<h1>🦖</h1>
+
+```dart
+DB.table('persons').truncate().save();
+```
 
 [logo_black]: https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/zebra.png#gh-light-mode-only
 [logo_white]: https://raw.githubusercontent.com/JeanRoldanDev/query_builder/main/doc/zebra.png#gh-dark-mode-only
