@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:database_query_builder/src/sql_query.dart';
 import 'package:postgres/postgres.dart';
 
@@ -25,7 +23,5 @@ class Connect {
     );
 
     await connection!.open();
-
-    print('Conection Database Success');
   }
 }
