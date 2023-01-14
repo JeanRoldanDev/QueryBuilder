@@ -1,13 +1,4 @@
-import 'package:database_query_builder/src/db.dart';
-
 Future<void> main() async {
-  DB.conexion(
-    databaseName: 'dartpay',
-    port: 5442,
-  );
-
-  await DB.table('SDA').truncate().save();
-
   //=========================================================
   //==================> DATA METHODS Statements <=============
   // await DataMethods.get();
