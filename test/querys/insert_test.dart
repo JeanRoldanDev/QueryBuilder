@@ -1,5 +1,5 @@
+import 'package:database_query_builder/src/data.dart';
 import 'package:database_query_builder/src/db.dart';
-import 'package:database_query_builder/src/exec.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -12,7 +12,7 @@ void main() {
           'age': 28,
         },
       );
-      expect(execute, isA<Execute>());
+      expect(execute, isA<SQL>());
     });
 
     test('Table->insert->toSQL', () {
@@ -67,7 +67,7 @@ void main() {
           'age': 28,
         },
       );
-      expect(execute, isA<ExecuteAffect>());
+      expect(execute, isA<SQL>());
     });
 
     test('Table->insertGetId->toSQL NO Primary Key', () {
@@ -123,7 +123,7 @@ void main() {
         ],
       );
 
-      expect(execute, isA<ExecuteAffect>());
+      expect(execute, isA<SQL>());
     });
 
     test('Table->insertAllGetIds>toSQL NO Primary Key', () {

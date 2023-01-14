@@ -1,117 +1,48 @@
 import 'package:database_query_builder/src/db.dart';
-import 'package:database_query_builder/src/sql_enums.dart';
 import 'package:database_query_builder/src/where.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('WHERE INSTANCE', () {
     test('Table->where no parameters', () {
-      try {
-        DB.table('people').where();
-      } catch (error) {
-        expect(error, equals('required parameters for WHERE'));
-      }
+      final instance = DB.table('people').update({
+        'firstName': 'new first name',
+        'lastName': 'new last name',
+      });
+      expect(instance, isA<WhereExec>());
     });
 
-    test('Table->where a parameter', () {
-      try {
-        DB.table('people').where(1);
-      } catch (error) {
-        expect(
-          error,
-          equals('required parameters for WHERE, or use DB.raw(your query SQL) '
-              'else minimum two parameters are required'),
-        );
-      }
-    });
-
-    test('Table->where parametros invalidos', () {
-      try {
-        final sql = DB.table('people').where(12, 32);
-        expect(sql, isA<WhereExec>());
-      } catch (error) {
-        expect(
-          error,
-          equals('requires checking the parameters sent in WHERE'),
-        );
-      }
-    });
-
-    test('Table->where parametros valid', () {
-      try {
-        final sql = DB.table('people').where('age', 32);
-        expect(sql, isA<Where>());
-      } catch (error) {
-        expect(
-          error,
-          equals('new error'),
-        );
-      }
-    });
-  });
-
-  test('Table->where->toSQL error parameter WhereType.betwee', () {
-    try {
-      final sql = DB.table('people').where('age', WhereType.equal).toSQL();
-      expect(sql, isA<Where>());
-    } catch (error) {
+    test('Table->where no parameters', () {
+      final instance = DB.table('people').update({
+        'firstName': 'new first name',
+        'lastName': 'new last name',
+      }).toSQL();
+      expect(instance, isA<String>());
       expect(
-        error,
-        equals('ERROR IN THE QUERY: SELECT * FROM people '
-            'WHERE age=@p0 WITH PARAMETES" {p0: WhereType.equal}'),
+        instance,
+        equals(
+          'UPDATE people SET '
+          "firstName='new first name', lastName='new last name'",
+        ),
       );
-    }
-  });
+    });
 
-  test('Table->where', () {
-    final sql = DB.table('people').where('age', 32).toSQL();
-    expect(sql, equals('SELECT * FROM people WHERE age=32'));
-  });
-
-  test('Table->where->toSQL WhereType.equal', () {
-    final sql = DB.table('people').where('age', WhereType.equal, 10).toSQL();
-    expect(sql, equals('SELECT * FROM people WHERE age=10'));
-  });
-
-  test('Table->where->toSQL WhereType.greaterThan', () {
-    final sql =
-        DB.table('people').where('age', WhereType.greaterThan, 10).toSQL();
-    expect(sql, equals('SELECT * FROM people WHERE age>10'));
-  });
-
-  test('Table->where->toSQL WhereType.greaterThan', () {
-    final sql = DB
-        .table('people')
-        .where('age', WhereType.greaterThanOrEqual, 10)
-        .toSQL();
-    expect(sql, equals('SELECT * FROM people WHERE age>=10'));
-  });
-
-  test('Table->where->toSQL WhereType.greaterThan', () {
-    final sql = DB.table('people').where('age', WhereType.lessThan, 10).toSQL();
-    expect(sql, equals('SELECT * FROM people WHERE age<10'));
-  });
-
-  test('Table->where->toSQL WhereType.greaterThan', () {
-    final sql =
-        DB.table('people').where('age', WhereType.lessThanOrEqual, 10).toSQL();
-    expect(sql, equals('SELECT * FROM people WHERE age<=10'));
-  });
-
-  test('Table->where->toSQL WhereType.greaterThan', () {
-    final sql = DB.table('people').where('age', WhereType.like, 10).toSQL();
-    expect(sql, equals('SELECT * FROM people WHERE age LIKE 10'));
-  });
-
-  test('Table->where->', () {
-    final sql = DB
-        .table('people')
-        .where('age', 32)
-        .where('last_name', 'roldan')
-        .toSQL();
-    expect(
-      sql,
-      equals("SELECT * FROM people WHERE age=32 AND last_name='roldan'"),
-    );
+    test('Table->where no parameters', () {
+      final instance = DB
+          .table('people')
+          .update({
+            'firstName': 'new first name',
+            'lastName': 'new last name',
+          })
+          .where('age', 10)
+          .toSQL();
+      expect(
+        instance,
+        equals(
+          'UPDATE people SET '
+          "firstName='new first name', lastName='new last name' WHERE age=10",
+        ),
+      );
+    });
   });
 }
