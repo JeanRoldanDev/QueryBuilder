@@ -14,9 +14,17 @@ class Table extends TableExt with Data, DataSQL, DataModel {
 
   static final query = <String>[];
 
-  Execute drop() => Execute();
+  Execute drop() {
+    final sql = SQLquery.instance;
+    sql.query.add('DROP TABLE ${sql.table}');
+    return Execute();
+  }
 
-  Execute truncate() => Execute();
+  Execute truncate() {
+    final sql = SQLquery.instance;
+    sql.query.add('TRUNCATE TABLE ${sql.table}');
+    return Execute();
+  }
 
   WhereExec update(Map<String, dynamic> value) {
     final sql = SQLquery.instance;
