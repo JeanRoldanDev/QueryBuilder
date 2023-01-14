@@ -6,6 +6,8 @@ Future<void> main() async {
     port: 5442,
   );
 
+  await DB.table('SDA').truncate().save();
+
   //=========================================================
   //==================> DATA METHODS Statements <=============
   // await DataMethods.get();
