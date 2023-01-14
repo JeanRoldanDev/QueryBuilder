@@ -1,9 +1,7 @@
-// ignore_for_file: avoid_print
-
-import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/database_query_builder.dart';
+import 'package:database_query_builder/src/data.dart';
 import 'package:database_query_builder/src/filter.dart';
 import 'package:database_query_builder/src/models.dart';
-import 'package:database_query_builder/src/sql_enums.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 
 abstract class WhereImpl<T> {
@@ -107,10 +105,10 @@ class Where extends Filter implements WhereImpl<Where> {
   Where whereOR() => throw UnimplementedError('whereOR not available');
 
   @override
-  Where whereNull() => throw UnimplementedError('whereOR not available');
+  Where whereNull() => throw UnimplementedError('whereNull not available');
 }
 
-class WhereExec extends Execute implements WhereImpl<WhereExec> {
+class WhereExec extends SQL implements WhereImpl<WhereExec> {
   static String get nameInstance => WhereExec().runtimeType.toString();
 
   @override
@@ -125,5 +123,5 @@ class WhereExec extends Execute implements WhereImpl<WhereExec> {
   WhereExec whereOR() => throw UnimplementedError('whereOR not available');
 
   @override
-  WhereExec whereNull() => throw UnimplementedError('whereOR not available');
+  WhereExec whereNull() => throw UnimplementedError('whereNull not available');
 }

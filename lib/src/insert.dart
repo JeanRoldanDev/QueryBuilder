@@ -1,8 +1,8 @@
-import 'package:database_query_builder/src/exec.dart';
+import 'package:database_query_builder/src/data.dart';
 import 'package:database_query_builder/src/sql_query.dart';
 
 class Insert {
-  Execute insert(Map<String, dynamic> value) {
+  SQL insert(Map<String, dynamic> value) {
     final sql = SQLquery.instance;
     sql.query.add('INSERT INTO ${sql.table}');
     sql.query.add('(${value.keys.join(', ')})');
@@ -15,11 +15,10 @@ class Insert {
     });
 
     sql.query.add('VALUES (${values.join(', ')})');
-
-    return Execute();
+    return SQL();
   }
 
-  Execute insertAll(List<JMap> values) {
+  SQL insertAll(List<JMap> values) {
     final sql = SQLquery.instance;
     sql.query.add('INSERT INTO ${sql.table}');
     sql.query.add('(${values.first.keys.join(', ')})');
@@ -36,10 +35,10 @@ class Insert {
       listValues.add('(${values.join(', ')})');
     }
     sql.query.add('${listValues.join(', ')};');
-    return Execute();
+    return SQL();
   }
 
-  ExecuteAffect insertGetId(Map<String, dynamic> value, [String? primaryKey]) {
+  SQL insertGetId(Map<String, dynamic> value, [String? primaryKey]) {
     final sql = SQLquery.instance;
 
     sql.query.add('INSERT INTO ${sql.table}');
@@ -59,11 +58,10 @@ class Insert {
     } else {
       sql.query.add('RETURNING');
     }
-
-    return ExecuteAffect();
+    return SQL();
   }
 
-  ExecuteAffect insertAllGetIds(List<JMap> values, [String? primaryKey]) {
+  SQL insertAllGetIds(List<JMap> values, [String? primaryKey]) {
     final sql = SQLquery.instance;
     sql.query.add('INSERT INTO ${sql.table}');
     sql.query.add('(${values.first.keys.join(', ')})');
@@ -87,7 +85,6 @@ class Insert {
     } else {
       sql.query.add('RETURNING');
     }
-
-    return ExecuteAffect();
+    return SQL();
   }
 }

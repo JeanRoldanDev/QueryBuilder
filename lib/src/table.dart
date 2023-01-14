@@ -1,5 +1,4 @@
 import 'package:database_query_builder/src/data.dart';
-import 'package:database_query_builder/src/exec.dart';
 import 'package:database_query_builder/src/insert.dart';
 import 'package:database_query_builder/src/select.dart';
 import 'package:database_query_builder/src/sql_query.dart';
@@ -7,23 +6,21 @@ import 'package:database_query_builder/src/where.dart';
 
 class TableExt extends Select with Insert {}
 
-class Table extends TableExt with Data, DataSQL, DataModel {
+class Table extends TableExt with DataSQL {
   Table(this.tableName);
 
   final String tableName;
 
   static final query = <String>[];
 
-  Execute drop() {
+  void drop() {
     final sql = SQLquery.instance;
     sql.query.add('DROP TABLE ${sql.table}');
-    return Execute();
   }
 
-  Execute truncate() {
+  void truncate() {
     final sql = SQLquery.instance;
     sql.query.add('TRUNCATE TABLE ${sql.table}');
-    return Execute();
   }
 
   WhereExec update(Map<String, dynamic> value) {
