@@ -29,7 +29,19 @@ class SQLquery {
       validateEnpty();
 
       final sql = query.join(' ');
-      final queryResult = PostgreSQLFormat.substitute(sql, params);
+      final querySqlQuery = PostgreSQLFormat.substitute(
+        sql,
+        params,
+        replace: (identifier, index) {
+          final value = params[identifier.name];
+          if (value is SqlQuery) {
+            return PostgreSQLFormat.substitute(value.value, null);
+          }
+          return '@${identifier.name}';
+        },
+      );
+
+      final queryResult = PostgreSQLFormat.substitute(querySqlQuery, params);
       selects.clear();
       print('SQL: $queryResult');
       return queryResult;
@@ -99,13 +111,24 @@ class SQLquery {
     }
 
     final sql = query.join(' ');
-    print('SQL: ${PostgreSQLFormat.substitute(sql, params)}');
+
+    final newSQL = PostgreSQLFormat.substitute(
+      sql,
+      params,
+      replace: (identifier, index) {
+        final value = params[identifier.name];
+        if (value is SqlQuery) {
+          return PostgreSQLFormat.substitute(value.value, null);
+        }
+        return '@${identifier.name}';
+      },
+    );
+    print('SQL: $newSQL');
 
     final result = await connect.connection!.execute(
-      sql,
+      newSQL,
       substitutionValues: params,
     );
-    print('AFFECTED ROWS:: $result');
 
     return result;
   }
