@@ -1,3 +1,5 @@
+## 0.0.8
+- add sopport an d fix DB.raw
 ## 0.0.7
 - Impl INSERT GET ID
 - Impl INSERT MULTIPLE GET ID
