@@ -1,4 +1,4 @@
-## 0.0.8
+## 0.0.8-dev
 - add sopport an d fix DB.raw
 ## 0.0.7
 - Impl INSERT GET ID

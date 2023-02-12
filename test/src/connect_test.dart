@@ -14,7 +14,7 @@ void main() {
   test('Connect init', () async {
     SQLquery.instance.dbconnect = DBconnect(
       host: 'localhost',
-      databaseName: 'dartpay',
+      databaseName: 'dartbase',
       port: 5442,
       username: 'postgres',
       password: '',
