@@ -29,7 +29,7 @@ class SQLquery {
       validateEnpty();
 
       final sql = query.join(' ');
-      final queryResult = PostgreSQLFormat.substitute(
+      final querySqlQuery = PostgreSQLFormat.substitute(
         sql,
         params,
         replace: (identifier, index) {
@@ -41,6 +41,7 @@ class SQLquery {
         },
       );
 
+      final queryResult = PostgreSQLFormat.substitute(querySqlQuery, params);
       selects.clear();
       print('SQL: $queryResult');
       return queryResult;
